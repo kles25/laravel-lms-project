@@ -26,23 +26,6 @@ function HomeNavigation() {
         });
     };
 
-    useEffect(() => {
-        if (token) {
-            axiosClient
-                .get("/user")
-                .then(({ data }) => {
-                    setUser(data);
-                })
-                .catch((error) => {
-                    if (error.response && error.response.status === 401) {
-                        // Handle unauthorized error or perform logout actions
-                        setUser({});
-                        setToken(null);
-                    }
-                });
-        }
-    }, [token, setUser, setToken]);
-
     const goToDashboard = () => {
         if (user.role === "admin") {
             navigate("/admin");

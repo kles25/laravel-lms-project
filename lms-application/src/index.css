@@ -43,6 +43,36 @@ body {
     -moz-box-shadow: inset 0 0 10px 5px #0003;
 }
 
+.loader {
+    height: 60px;
+    aspect-ratio: 2/3;
+    --c: no-repeat linear-gradient(#000000 0 0);
+    background: var(--c), var(--c), var(--c), var(--c);
+    background-size: 50% 33.4%;
+    animation: l8 1.5s infinite linear;
+}
+
+@keyframes l8 {
+
+    0%,
+    5% {
+        background-position: 0 25%, 100% 25%, 0 75%, 100% 75%
+    }
+
+    33% {
+        background-position: 0 50%, 100% 0, 0 100%, 100% 50%
+    }
+
+    66% {
+        background-position: 0 50%, 0 0, 100% 100%, 100% 50%
+    }
+
+    95%,
+    100% {
+        background-position: 0 75%, 0 25%, 100% 75%, 100% 25%
+    }
+}
+
 .pages-col-1 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 8.333333%;

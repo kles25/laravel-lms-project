@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../../context/ContexProvider";
 import axiosClient from "../../axios-client";
@@ -8,13 +8,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AdminDashboardNavigation from "../../components/navigations/AdminDashboardNavigation";
 
 function AdminDashboard() {
-    const { user, token, setUser, setToken } = useStateContext();
+    const { user, setUser, setToken } = useStateContext();
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
-
-    if (!token) {
-        return <Navigate to="/signin" />;
-    }
 
     const onLogout = (e) => {
         e.preventDefault();
@@ -23,12 +19,6 @@ function AdminDashboard() {
             setToken(null);
         });
     };
-
-    useEffect(() => {
-        axiosClient.get("/user").then(({ data }) => {
-            setUser(data);
-        });
-    }, []);
 
     const baseURL = "http://localhost:8000/";
     const imageUrl = baseURL + user.image;

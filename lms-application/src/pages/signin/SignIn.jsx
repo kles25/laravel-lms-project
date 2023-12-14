@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function SignIn() {
     const emailRef = createRef();
     const passwordRef = createRef();
-    const { setUser, setToken } = useStateContext();
+    const { setUser, setToken, updateUser } = useStateContext();
     const [message, setMessage] = useState(null);
     const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ function SignIn() {
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
+                updateUser(data.user, data.user.role);
 
                 if (data.user.role === "admin") {
                     navigate("/admin");

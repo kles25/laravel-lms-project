@@ -26,8 +26,17 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import { useStateContext } from "./context/ContexProvider";
 
 const ProtectedRoute = ({ element, allowedRoles }) => {
-    const { user } = useStateContext();
-    console.log(user.role);
+    const { user, isLoading } = useStateContext();
+
+    if (isLoading) {
+        // Render a loading indicator or handle loading state
+        return <div className="loader"></div>;
+    }
+
+    if (!user || !user.role) {
+        // Redirect to login if the user is not authenticated
+        return <Navigate to="/signin" />;
+    }
 
     if (allowedRoles.includes(user.role)) {
         return element;
