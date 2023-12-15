@@ -24,18 +24,45 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import UnAuthorized from "./pages/errorpage/UnAuthorized";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { useStateContext } from "./context/ContexProvider";
+import { useEffect, useState } from "react";
+import StudentHome from "./pages/student/StudentHome";
+import StudentClasses from "./pages/student/StudentClasses";
+import StudentHomework from "./pages/student/StudentHomework";
+import StudentQuizzes from "./pages/student/StudentQuizzes";
+import StudentTest from "./pages/student/StudentTest";
+import StudentGrades from "./pages/student/StudentGrades";
+import StudentCalendar from "./pages/student/StudentCalendar";
+import StudentProfile from "./pages/student/StudentProfile";
 
-const ProtectedRoute = ({ element, allowedRoles }) => {
+const ProtectedRoute = ({ element, allowedRoles, path }) => {
     const { user, isLoading } = useStateContext();
+    const [showLoader, setShowLoader] = useState(true);
 
-    if (isLoading) {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(false); // Set showLoader to false after 5 seconds
+        }, 5000); // 5 seconds delay
+
+        return () => clearTimeout(timer); // Clear timeout on unmounting or change
+    }, []);
+
+    if (isLoading || showLoader) {
         // Render a loading indicator or handle loading state
-        return <div className="loader"></div>;
+        return (
+            <div className="animate-cube-holder">
+                <div className="loader"></div>
+            </div>
+        );
     }
 
     if (!user || !user.role) {
         // Redirect to login if the user is not authenticated
         return <Navigate to="/signin" />;
+    }
+
+    if (user && user.role && path === "/signin") {
+        // Redirect to home if the user is already signed in and trying to access /signin
+        return <Navigate to="/" />;
     }
 
     if (allowedRoles.includes(user.role)) {
@@ -169,35 +196,35 @@ const router = createBrowserRouter([
             },
             {
                 path: "/student/home",
-                element: <TeacherHome />,
+                element: <StudentHome />,
             },
             {
                 path: "/student/classes",
-                element: <TeacherClasses />,
+                element: <StudentClasses />,
             },
             {
                 path: "/student/homework",
-                element: <TeacherHomework />,
+                element: <StudentHomework />,
             },
             {
                 path: "/student/quiz",
-                element: <TeacherQuizzes />,
+                element: <StudentQuizzes />,
             },
             {
                 path: "/student/test",
-                element: <TeacherTest />,
+                element: <StudentTest />,
             },
             {
                 path: "/student/grades",
-                element: <TeacherGrades />,
+                element: <StudentGrades />,
             },
             {
                 path: "/student/calendar",
-                element: <TeacherCalendar />,
+                element: <StudentCalendar />,
             },
             {
                 path: "/student/profile",
-                element: <TeacherProfile />,
+                element: <StudentProfile />,
             },
         ],
     },

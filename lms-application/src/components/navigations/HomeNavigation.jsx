@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./navigations.css";
 import { Link, useNavigate } from "react-router-dom";
 import CubeLogo from "../animation/CubeLogo";
@@ -18,11 +18,32 @@ function HomeNavigation() {
     const handleClick = () => setClick(!click);
     const { user, token, setUser, setToken } = useStateContext();
     const navigate = useNavigate();
+    const modalRef = useRef(null);
+    const iconRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target) &&
+                !iconRef.current.contains(event.target) &&
+                click
+            ) {
+                setClick(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [click]);
 
     const onLogout = () => {
         axiosClient.post("/signout").then(() => {
             setUser({});
             setToken(null);
+            navigate("/signin");
         });
     };
 
@@ -56,6 +77,7 @@ function HomeNavigation() {
             <div className="header-navigation-holder">
                 <h3 className="header-home-title">MENU</h3>
                 <div
+                    ref={iconRef}
                     className={
                         click ? "hb-icon-holder active" : "hb-icon-holder"
                     }
@@ -67,6 +89,7 @@ function HomeNavigation() {
                 </div>
             </div>
             <div
+                ref={modalRef}
                 className={
                     click
                         ? "header-navigation-links active"

@@ -10,21 +10,14 @@
     text-transform: uppercase;
     font-family: 'Orbitron', sans-serif;
     font-size: 2vh;
+    color: #fffffe;
 }
 
 .hidden-logo {
     display: none;
 }
 
-.hb-icon-one,
-.hb-icon-two,
-.hb-icon-three {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    margin: 3px;
-    transition: .5s;
-}
+
 
 .header-navigation-holder {
     display: flex;
@@ -35,6 +28,16 @@
     position: absolute;
     z-index: 1;
     right: 80px;
+}
+
+.hb-icon-one,
+.hb-icon-two,
+.hb-icon-three {
+    width: 30px;
+    height: 3px;
+    background-color: #fffffe;
+    margin: 3px;
+    transition: .5s;
 }
 
 .hb-icon-holder {
@@ -53,28 +56,59 @@
     width: 10px;
 }
 
+.db-hb-icon-one,
+.db-hb-icon-two,
+.db-hb-icon-three {
+    width: 5vw;
+    height: .25vh;
+    background-color: #fffffe;
+    margin: .5vh;
+    transition: .5s;
+}
+
+.db-hb-icon-holder {
+    cursor: pointer;
+    margin-right: 2vh;
+    display: none;
+}
+
+.db-hb-icon-holder.active .db-hb-icon-two {
+    width: 3vw;
+}
+
+.db-hb-icon-holder.active .db-hb-icon-three {
+    width: 2vw;
+}
+
 .header-navigation-links {
     position: absolute;
     display: flex;
     flex-direction: column;
     top: 0;
-    align-items: center;
+    align-items: flex-end;
     height: 100vh;
     justify-content: center;
     right: 0;
     width: 0;
-    background-color: gray;
+    background-color: #0000006c;
     transition: .5s;
+    padding-right: 0;
+
 }
 
 .header-navigation-links.active {
     width: 200px;
+    padding-right: 4vh;
 }
 
 .header-navigation-links .navigations-link {
     margin: 4vh 0;
     text-decoration: none;
     display: none;
+    color: #fffffe;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.7vh;
+    text-transform: uppercase;
 }
 
 .header-navigation-links.active .navigations-link {
@@ -93,6 +127,7 @@
     text-decoration: none;
     margin: 0 3vw;
     font-size: 4vh;
+    color: #fffffe;
 }
 
 @media (max-width: 992px) {
@@ -102,5 +137,11 @@
 
     .header-logo-holder h3 {
         display: none;
+    }
+}
+
+@media (max-width: 690px) {
+    .db-hb-icon-holder {
+        display: block;
     }
 }

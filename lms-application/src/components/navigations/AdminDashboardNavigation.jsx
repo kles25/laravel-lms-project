@@ -6,6 +6,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import GroupIcon from "@mui/icons-material/Group";
+import CubeLogo from "../animation/CubeLogo";
 
 const navLinks = [
     { path: "/admin/home", label: "Home", icon: <HouseIcon /> },
@@ -27,8 +28,21 @@ function AdminDashboardNavigation() {
             <div className="pages-row">
                 <div className="pages-col-12">
                     <div className="dashboard-navigation-title">
-                        <Link to="" style={{ textDecoration: "none" }}>
+                        <Link
+                            className="text"
+                            to=""
+                            style={{ textDecoration: "none" }}
+                        >
                             <h1>H-CAMP</h1>
+                        </Link>
+                        <Link
+                            className="logo"
+                            to=""
+                            style={{
+                                textDecoration: "none",
+                            }}
+                        >
+                            <CubeLogo />
                         </Link>
                     </div>
                     <div className="dashboard-navigation-links">

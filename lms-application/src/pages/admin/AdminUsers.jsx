@@ -17,15 +17,19 @@ function AdminUsers() {
 
     const getUsers = () => {
         setLoading(true);
-        axiosClient
-            .get("/users")
-            .then(({ data }) => {
-                setLoading(false);
-                setUsers(data.data);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
+
+        // Introduce a 5-second delay before making the API call
+        setTimeout(() => {
+            axiosClient
+                .get("/users")
+                .then(({ data }) => {
+                    setLoading(false);
+                    setUsers(data.data);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
+        }, 5000); // 5 seconds delay
     };
 
     const onDeleteClick = (user) => {
@@ -75,7 +79,7 @@ function AdminUsers() {
                 </Link>
             </div>
             <div className="dashboard-users-table">
-                {loading && <p>Loading...</p>}
+                {loading && <div className="loader-two"></div>}
                 {!loading && (
                     <DataGrid
                         style={{

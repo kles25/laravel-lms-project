@@ -22,6 +22,8 @@ class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__.'/Commands');
 
+        $this->load(__DIR__.'/Commands/AddUser.php'); // Add this line to register the command
+
         require base_path('routes/console.php');
     }
 }

@@ -72,7 +72,7 @@ class UserController extends Controller
         if (isset($data['role'])) {
             $user->role = $data['role'];
         }
-        
+
         $user->update($data);
 
         return new UserResource($user);
