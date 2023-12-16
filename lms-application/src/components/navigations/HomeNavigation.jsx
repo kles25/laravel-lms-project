@@ -39,11 +39,11 @@ function HomeNavigation() {
         };
     }, [click]);
 
-    const onLogout = () => {
+    const onLogout = (e) => {
+        e.preventDefault();
         axiosClient.post("/signout").then(() => {
-            setUser({});
             setToken(null);
-            navigate("/signin");
+            setUser({});
         });
     };
 
@@ -105,9 +105,6 @@ function HomeNavigation() {
                     <>
                         <Link to="/signin" className="navigations-link">
                             Sign In
-                        </Link>
-                        <Link to="/signup" className="navigations-link">
-                            Sign Up
                         </Link>
                     </>
                 )}

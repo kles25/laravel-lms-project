@@ -38,6 +38,7 @@ class User extends Authenticatable
         'image',
         'user_code',
         'role',
+        'role_code',
     ];
 
     /**
@@ -59,6 +60,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'user_code' => 'string',
+        'role_code' => 'string',
     ];
 
 
@@ -67,11 +69,32 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($user) {
-            $user->user_code = hexdec(substr(md5(Str::random(8)), 0, 8)); // Generate a random alphanumeric code
-            // You can adjust the length of the code by changing the parameter in Str::random()
+            $roleCode = '';
+            switch ($user->role) {
+                case 'admin':
+                    $roleCode = '01';
+                    break;
+                case 'teacher':
+                    $roleCode = '02';
+                    break;
+                case 'student':
+                    $roleCode = '03';
+                    break;
+                // Add more cases for other roles if needed
+            }
+
+            // Find the maximum sequential number for the role
+            $maxRoleCount = self::where('role', $user->role)->max('user_code');
+            $roleCount = $maxRoleCount ? intval(substr($maxRoleCount, -4)) + 1 : 1;
+
+            $sequentialNumber = str_pad($roleCount, 3, '0', STR_PAD_LEFT);
+
+            $user->user_code = $roleCode . '00' . $sequentialNumber;
+
+            // Increment role code based on the count of existing users with the same role
+            $user->role_code = sprintf('%02d', $roleCount);
         });
     }
-
-   
+    
    
 }

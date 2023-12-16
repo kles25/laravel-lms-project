@@ -8,20 +8,11 @@ function SignIn() {
     const passwordRef = createRef();
     const { token, setUser, setToken, updateUser } = useStateContext();
     const [message, setMessage] = useState(null);
-    const [showLoader, setShowLoader] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
-            // If user is already logged in, show the loader before navigating
-            setShowLoader(true);
-
-            const timer = setTimeout(() => {
-                setShowLoader(false); // Hide loader after 5 seconds
-                navigate("/");
-            }, 5000); // 5 seconds delay
-
-            return () => clearTimeout(timer); // Clear timeout on unmounting or change
+            navigate("/");
         }
     }, [token, navigate]);
 
@@ -57,46 +48,39 @@ function SignIn() {
 
     return (
         <>
-            {showLoader && (
-                <div className="animate-cube-holder-two">
-                    <div className="loader"></div>
-                </div>
-            )}
-            {!showLoader && (
-                <div className="form-container">
-                    <div className="pages-row">
-                        <div className="pages-col-7"></div>
-                        <div className="pages-col-5">
-                            <form className="form-holder" onSubmit={onSubmit}>
-                                <div className="form-input">
-                                    <label>Email</label>
-                                    <input
-                                        ref={emailRef}
-                                        type="email"
-                                        placeholder="Email"
-                                    />
+            <div className="form-container">
+                <div className="pages-row">
+                    <div className="pages-col-7"></div>
+                    <div className="pages-col-5">
+                        <form className="form-holder" onSubmit={onSubmit}>
+                            <div className="form-input">
+                                <label>Email</label>
+                                <input
+                                    ref={emailRef}
+                                    type="email"
+                                    placeholder="Email"
+                                />
+                            </div>
+                            <div className="form-input">
+                                <label>Password</label>
+                                <input
+                                    ref={passwordRef}
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                            </div>
+                            <div className="form-input">
+                                <button>Submit</button>
+                            </div>
+                            {message && (
+                                <div className="alert">
+                                    <p>{message}</p>
                                 </div>
-                                <div className="form-input">
-                                    <label>Password</label>
-                                    <input
-                                        ref={passwordRef}
-                                        type="password"
-                                        placeholder="Password"
-                                    />
-                                </div>
-                                <div className="form-input">
-                                    <button>Submit</button>
-                                </div>
-                                {message && (
-                                    <div className="alert">
-                                        <p>{message}</p>
-                                    </div>
-                                )}
-                            </form>
-                        </div>
+                            )}
+                        </form>
                     </div>
                 </div>
-            )}
+            </div>
         </>
     );
 }

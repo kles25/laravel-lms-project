@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useStateContext } from "../../context/ContexProvider";
 import axiosClient from "../../axios-client";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -13,6 +13,7 @@ function AdminDashboard() {
     const { user, setUser, setToken } = useStateContext();
     const [click, setClick] = useState(false);
     const [burgClick, setBurgClick] = useState(false);
+    const navigate = useNavigate();
     const modalRef = useRef(null);
     const imageRef = useRef(null);
 
@@ -38,11 +39,15 @@ function AdminDashboard() {
     const handleClick = () => {
         setClick((prevState) => !prevState);
     };
+
     const onLogout = (e) => {
         e.preventDefault();
         axiosClient.post("/signout").then(() => {
-            setUser({});
             setToken(null);
+            // Set timeout before navigating to sign-in page
+            setTimeout(() => {
+                setUser({});
+            }, 5000); // 5 seconds delay
         });
     };
 

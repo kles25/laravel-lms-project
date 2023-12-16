@@ -1,8 +1,10 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import SignUp from "./pages/signup/SignUp";
+import { useStateContext } from "./context/ContexProvider";
+import { useEffect, useState } from "react";
 import SignIn from "./pages/signin/SignIn";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/errorpage/NotFound";
+import UnAuthorized from "./pages/errorpage/UnAuthorized";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminHome from "./pages/admin/AdminHome";
 import AdminCourses from "./pages/admin/AdminCourses";
@@ -21,10 +23,6 @@ import TeacherCalendar from "./pages/teacher/TeacherCalendar";
 import TeacherGrades from "./pages/teacher/TeacherGrades";
 import TeacherProfile from "./pages/teacher/TeacherProfile";
 import StudentDashboard from "./pages/student/StudentDashboard";
-import UnAuthorized from "./pages/errorpage/UnAuthorized";
-import Dashboard from "./pages/dashboard/Dashboard";
-import { useStateContext } from "./context/ContexProvider";
-import { useEffect, useState } from "react";
 import StudentHome from "./pages/student/StudentHome";
 import StudentClasses from "./pages/student/StudentClasses";
 import StudentHomework from "./pages/student/StudentHomework";
@@ -33,6 +31,36 @@ import StudentTest from "./pages/student/StudentTest";
 import StudentGrades from "./pages/student/StudentGrades";
 import StudentCalendar from "./pages/student/StudentCalendar";
 import StudentProfile from "./pages/student/StudentProfile";
+
+const TIMEOUT_DURATION = 5000;
+
+const DelayedRoute = ({ element }) => {
+    const [showLoader, setShowLoader] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowLoader(false);
+        }, TIMEOUT_DURATION);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    return showLoader ? (
+        <div className="default-page-container">
+            <div className="loader"></div>
+            <div className="">
+                <h3 className="loading-text">
+                    Redirecting
+                    <span data-text=".">.</span>
+                    <span data-text=".">.</span>
+                    <span data-text=".">.</span>
+                </h3>
+            </div>
+        </div>
+    ) : (
+        element
+    );
+};
 
 const ProtectedRoute = ({ element, allowedRoles, path }) => {
     const { user, isLoading } = useStateContext();
@@ -49,8 +77,16 @@ const ProtectedRoute = ({ element, allowedRoles, path }) => {
     if (isLoading || showLoader) {
         // Render a loading indicator or handle loading state
         return (
-            <div className="animate-cube-holder">
+            <div className="default-page-container">
                 <div className="loader"></div>
+                <div className="">
+                    <h3 className="loading-text">
+                        Verifying User
+                        <span data-text=".">.</span>
+                        <span data-text=".">.</span>
+                        <span data-text=".">.</span>
+                    </h3>
+                </div>
             </div>
         );
     }
@@ -75,12 +111,8 @@ const ProtectedRoute = ({ element, allowedRoles, path }) => {
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
+        element: <DelayedRoute element={<Home />} />,
         children: [
-            {
-                path: "/signup",
-                element: <SignUp />,
-            },
             {
                 path: "/signin",
                 element: <SignIn />,
@@ -235,10 +267,6 @@ const router = createBrowserRouter([
     {
         path: "/unauthorized",
         element: <UnAuthorized />,
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard />,
     },
 ]);
 

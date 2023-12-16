@@ -5,7 +5,6 @@ import axiosClient from "../../axios-client";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AdminDashboardNavigation from "../../components/navigations/AdminDashboardNavigation";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HouseIcon from "@mui/icons-material/House";
 import TeacherDashboardNavigation from "../../components/navigations/TeacherDashboardNavigation";

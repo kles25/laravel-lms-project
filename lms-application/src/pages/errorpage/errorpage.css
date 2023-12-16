@@ -1,0 +1,72 @@
+.default-page-container {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    position: absolute;
+    width: 100vw;
+    background-color: #000a2b;
+    background-image: linear-gradient(180deg, #0e4166db, #000a2b);
+}
+
+.default-page-container h3 {
+    font-size: 5vh;
+    font-family: 'Orbitron', sans-serif;
+    color: #fffffe;
+    margin-left: 2vh;
+}
+
+.loading-text span {
+    position: relative;
+    color: rgba(0, 0, 0, 0);
+    font-size: 5vh;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0 1vh;
+}
+
+.loading-text span::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: attr(data-text);
+    color: #fff;
+    opacity: 0;
+    transform: scale(1.5);
+    animation: loadingText 1.5s infinite;
+}
+
+.loading-text span:nth-child(2)::after {
+    animation-delay: 0.1s;
+}
+
+.loading-text span:nth-child(3)::after {
+    animation-delay: 0.2s;
+}
+
+.loading-text span:nth-child(4)::after {
+    animation-delay: 0.3s;
+}
+
+.loading-text span:nth-child(5)::after {
+    animation-delay: 0.4s;
+}
+
+.loading-text span:nth-child(6)::after {
+    animation-delay: 0.5s;
+}
+
+@keyframes loadingText {
+
+    0%,
+    75%,
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    25%,
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

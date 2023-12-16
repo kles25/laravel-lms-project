@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UnAuthorized() {
-    return <div>UnAuthorized</div>;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const redirectTimeout = setTimeout(() => {
+            // Redirect to the home page after 5 seconds
+            navigate("/");
+        }, 5000); // 5 seconds
+
+        return () => clearTimeout(redirectTimeout);
+    }, []);
+    return (
+        <div className="default-page-container">
+            <div className="loader"></div>
+            <div className="">
+                <h3 className="loading-text">
+                    Restricted Access
+                    <span data-text=".">.</span>
+                    <span data-text=".">.</span>
+                    <span data-text=".">.</span>
+                </h3>
+            </div>
+        </div>
+    );
 }
 
 export default UnAuthorized;
