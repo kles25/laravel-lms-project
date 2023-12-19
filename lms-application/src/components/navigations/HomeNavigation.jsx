@@ -11,6 +11,7 @@ const navLinks = [
     { path: "/news", label: "News" },
     { path: "/contact", label: "Contact" },
     { path: "/courses", label: "Courses" },
+    { path: "/enrollment", label: "Enroll" },
 ];
 
 function HomeNavigation() {

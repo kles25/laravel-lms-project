@@ -55,7 +55,6 @@ function AdminCreateUsers() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(user);
 
         const payload = { ...user };
         if (payload.image) {
@@ -121,7 +120,10 @@ function AdminCreateUsers() {
                 {loading && <div className="text-center">Loading...</div>}
 
                 {!loading && (
-                    <form onSubmit={onSubmit} className="form-holder">
+                    <form
+                        onSubmit={onSubmit}
+                        className="form-holder pages-col-5"
+                    >
                         <div className="form-input">
                             <label>Full Name</label>
                             <input

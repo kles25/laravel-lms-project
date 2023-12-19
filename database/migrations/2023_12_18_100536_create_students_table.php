@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('enrollees', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
-            $table->date('date_of_birth')->default(DB::raw('CURRENT_DATE'));
+            $table->date('date_of_birth');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->string('address');
             $table->string('phone_number');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('guardian_phone');
             $table->string('previous_school');
             $table->integer('grade_completed');
+            $table->timestamp('enrolled_at')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enrollees');
+        Schema::dropIfExists('students');
     }
 };

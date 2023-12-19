@@ -31,8 +31,10 @@ import StudentTest from "./pages/student/StudentTest";
 import StudentGrades from "./pages/student/StudentGrades";
 import StudentCalendar from "./pages/student/StudentCalendar";
 import StudentProfile from "./pages/student/StudentProfile";
+import Enrollment from "./pages/enrollment/Enrollment";
+import AdminViewEnrollee from "./pages/admin/AdminViewEnrollee";
 
-const TIMEOUT_DURATION = 5000;
+const TIMEOUT_DURATION = 3000;
 
 const DelayedRoute = ({ element }) => {
     const [showLoader, setShowLoader] = useState(true);
@@ -69,7 +71,7 @@ const ProtectedRoute = ({ element, allowedRoles, path }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowLoader(false); // Set showLoader to false after 5 seconds
-        }, 5000); // 5 seconds delay
+        }, 3000); // 5 seconds delay
 
         return () => clearTimeout(timer); // Clear timeout on unmounting or change
     }, []);
@@ -117,6 +119,10 @@ const router = createBrowserRouter([
                 path: "/signin",
                 element: <SignIn />,
             },
+            {
+                path: "/enrollment",
+                element: <Enrollment />,
+            },
         ],
     },
     {
@@ -143,6 +149,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/users",
                 element: <AdminUsers />,
+            },
+            {
+                path: "/admin/enrolled/:id",
+                element: <AdminViewEnrollee />,
             },
             {
                 path: "/admin/users/:user_code",
