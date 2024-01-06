@@ -25,17 +25,22 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->validated();  
 
         if (isset($data['image'])) {
             $relativePath = $this->saveImage($data['image']);
             $data['image'] = $relativePath;
         }
 
-        $data['password'] = bcrypt($data['password']);
+        // Check if 'password' key exists before hashing
+        if (array_key_exists('password', $data)) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        // Create the user after hashing the password if it exists
         $user = User::create($data);
 
-        return response(new UserResource($user) , 201);
+        return response(new UserResource($user), 201);
     }
 
     /**

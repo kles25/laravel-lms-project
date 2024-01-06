@@ -14,7 +14,7 @@ class AddUser extends Command
      *
      * @var string
      */
-    protected $signature = 'user:add {name} {email} {password} {role}';
+    protected $signature = 'user:add {user_name} {password} {role}';
 
     /**
      * The console command description.
@@ -28,8 +28,7 @@ class AddUser extends Command
      */
     public function handle()
     {
-        $name = $this->argument('name');
-        $email = $this->argument('email');
+        $user_name = $this->argument('user_name');
         $password = $this->argument('password');
         $role = $this->argument('role');
 
@@ -65,14 +64,12 @@ class AddUser extends Command
 
         // Insert the user into the database with the hashed password
         DB::table('users')->insert([
-            'name' => $name,
-            'email' => $email,
+            'user_name' => $user_name,
             'password' => $hashedPassword,
             'user_code' => $userCode,
             'role' => $role,
             'role_code' => $roleCode, // You can set this value here if needed
             'image' => null, // If needed, handle image URL here
-            'email_verified_at' => null, // Handle email verification here if needed
             'remember_token' => null, // Handle remember token here if needed
             'created_at' => now(),
             'updated_at' => now(),

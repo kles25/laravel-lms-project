@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EnrolleeController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\StudentsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/enrollees', EnrolleeController::class);
-    Route::apiResource('/students', EnrolleeController::class);
+    Route::apiResource('/students', StudentsController::class);
 });
 
 Route::post ('/signup', [AuthController::class, 'signup']);
 Route::post ('/signin', [AuthController::class, 'signin']);
-
 Route::post ('/enrollees', [EnrolleeController::class, 'store']);

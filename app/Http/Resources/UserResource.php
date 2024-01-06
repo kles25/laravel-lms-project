@@ -18,8 +18,7 @@ class UserResource extends JsonResource
     {
         return [
             'user_code' => $this->user_code,
-            'name' => $this->name,
-            'email' => $this->email,
+            'user_name' => $this->user_name,
             'role' => $this->role,
             'image_url' => $this->image ? URL::to($this->image) : null,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

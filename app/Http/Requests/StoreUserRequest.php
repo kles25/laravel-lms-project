@@ -22,18 +22,22 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:55',
-            'email' => 'required|email|unique:users,email',
-            'password' => [
-                'required',
-                Password::min(8)
-                    ->letters()
-                    ->symbols()
-                    ->numbers()
-            ],
+        $rules = [
             'image' => 'nullable|string',
             'role' => 'required|in:admin,teacher,student',
         ];
+
+        // Check if 'role' is 'student' to skip validation for 'user_name' and 'password'
+        if ($this->has('role') && $this->input('role') !== 'student') {
+            $rules['user_name'] = 'required|string|unique:users,user_name';
+            $rules['password'] = [
+                'required',
+                Password::min(8)
+                    ->letters()
+                    ->numbers()
+            ];
+        }
+
+        return $rules;
     }
 }

@@ -17,7 +17,7 @@ class EnrolleeController extends Controller
      */
     public function index()
     {
-        return EnrolleeResource::collection(Enrollee::query()->orderBy('created_at', 'desc')->paginate(10));
+        return EnrolleeResource::collection(Enrollee::query()->orderBy('id', 'desc')->paginate(10));
     }
 
     /**

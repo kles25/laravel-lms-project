@@ -256,15 +256,24 @@ body {
     height: 5vh;
 }
 
-.form-container {
-    padding: 5vh 0;
-}
-
 .form-holder {
     margin: auto;
     padding: 5vh;
     height: 75vh;
     overflow-y: scroll;
+}
+
+
+.form-holder h3 {
+    color: #fffffe;
+    font-size: 2vh;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 2vh 0;
+}
+
+.form-input {
+    padding: 0 1vh;
 }
 
 .form-input label {
@@ -515,6 +524,71 @@ body {
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
     font-size: 1.5vh;
+}
+
+.cell-action button {
+    padding: .5vh 1vh;
+    border: 1px solid;
+    background-color: #690604;
+    text-decoration: none;
+    color: #fffffe;
+    font-size: 1.5vh;
+    border-radius: 1vh;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.cell-action button:hover {
+    border: 1px solid #690604;
+    background-color: #fffffe;
+    color: #690604;
+}
+
+.cell-action a {
+    padding: .5vh 1vh;
+    border: 1px solid #fffffe;
+    background-color: #fffffe;
+    text-decoration: none;
+    color: #000a2b;
+    font-size: 1.5vh;
+    border-radius: 1vh;
+    transition: .5s;
+}
+
+.cell-action a:hover {
+    border: 1px solid #000a2b;
+    background-color: #000a2b;
+    color: #fffffe;
+}
+
+.cell-action .btn-enroll {
+    padding: .5vh 1vh;
+    border: 1px solid #000a2b;
+    background-color: #000a2b;
+    text-decoration: none;
+    color: #fffffe;
+    font-size: 1.5vh;
+    border-radius: 1vh;
+    transition: .5s;
+}
+
+.cell-action .btn-enroll:hover {
+    padding: .5vh 1vh;
+    border: 1px solid #fffffe;
+    background-color: #fffffe;
+    text-decoration: none;
+    color: #000a2b;
+    font-size: 1.5vh;
+    border-radius: 1vh;
+    transition: .5s;
+}
+
+button:disabled {
+    opacity: 0.5;
+    /* Reduce opacity to indicate disabled state */
+    cursor: not-allowed;
+    /* Change cursor to not-allowed */
+    /* Additional styles if needed */
 }
 
 .dashboard-section-content {

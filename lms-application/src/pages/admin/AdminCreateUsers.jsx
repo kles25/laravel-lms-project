@@ -13,8 +13,7 @@ function AdminCreateUsers() {
     let { user_code } = useParams();
     const [user, setUser] = useState({
         user_code: null,
-        name: "",
-        email: "",
+        user_name: "",
         password: "",
         password_confirmation: "",
         role: "",
@@ -113,7 +112,7 @@ function AdminCreateUsers() {
                             <h3 className="dashboard-title">Users</h3>
                         </Link>
                         <h3 className="dashboard-title">
-                            Edit User: {user.name}
+                            Edit User: {user.user_name}
                         </h3>
                     </div>
                 )}
@@ -125,25 +124,17 @@ function AdminCreateUsers() {
                         className="form-holder pages-col-5"
                     >
                         <div className="form-input">
-                            <label>Full Name</label>
+                            <label>Username</label>
                             <input
-                                value={user.name}
+                                value={user.user_name}
                                 onChange={(ev) =>
-                                    setUser({ ...user, name: ev.target.value })
+                                    setUser({
+                                        ...user,
+                                        user_name: ev.target.value,
+                                    })
                                 }
                                 type="text"
-                                placeholder="Full Name"
-                            />
-                        </div>
-                        <div className="form-input">
-                            <label>Email</label>
-                            <input
-                                value={user.email}
-                                onChange={(ev) =>
-                                    setUser({ ...user, email: ev.target.value })
-                                }
-                                type="email"
-                                placeholder="Email"
+                                placeholder="Username"
                             />
                         </div>
                         <div className="form-input">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import HomeNavigation from "../../components/navigations/HomeNavigation";
 import FooterNavigation from "../../components/navigations/FooterNavigation";
 

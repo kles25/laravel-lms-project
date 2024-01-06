@@ -4,7 +4,7 @@ import axiosClient from "../../axios-client";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-    const emailRef = createRef();
+    const userNameRef = createRef();
     const passwordRef = createRef();
     const { token, setUser, setToken, updateUser } = useStateContext();
     const [message, setMessage] = useState(null);
@@ -20,7 +20,7 @@ function SignIn() {
         ev.preventDefault();
 
         const payload = {
-            email: emailRef.current.value,
+            user_name: userNameRef.current.value,
             password: passwordRef.current.value,
         };
         axiosClient
@@ -56,8 +56,8 @@ function SignIn() {
                             <div className="form-input">
                                 <label>Email</label>
                                 <input
-                                    ref={emailRef}
-                                    type="email"
+                                    ref={userNameRef}
+                                    type="text"
                                     placeholder="Email"
                                 />
                             </div>

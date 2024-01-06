@@ -4,13 +4,13 @@ import { useStateContext } from "../../context/ContexProvider";
 import axiosClient from "../../axios-client";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-function AdminViewEnrollee() {
+function AdminViewStudents() {
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(false);
     const { setNotification } = useStateContext();
     const navigate = useNavigate();
     let { id } = useParams();
-    const [enrolled, setEnrolled] = useState({
+    const [students, setStudents] = useState({
         id: null,
         full_name: "",
         date_of_birth: "",
@@ -24,17 +24,18 @@ function AdminViewEnrollee() {
         guardian_phone: "",
         previous_school: "",
         grade_completed: "",
-        enrolled_at: "",
+        date_enrolled: "",
+        created_at: "",
     });
 
     if (id) {
         useEffect(() => {
             setLoading(true);
             axiosClient
-                .get(`/enrollees/${id}`)
+                .get(`/students/${id}`)
                 .then(({ data }) => {
                     setLoading(false);
-                    setEnrolled(data.data);
+                    setStudents(data.data);
                 })
                 .catch(() => {
                     setLoading(false);
@@ -44,11 +45,11 @@ function AdminViewEnrollee() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(enrolled);
+        console.log(students);
 
-        if (enrolled.id) {
+        if (students.id) {
             axiosClient
-                .put(`/enrollees/${enrolled.id}`, enrolled)
+                .put(`/students/${students.id}`, students)
                 .then(() => {
                     setNotification("User was successfully updated");
                     navigate("/admin/users");
@@ -61,7 +62,7 @@ function AdminViewEnrollee() {
                 });
         } else {
             axiosClient
-                .post("/enrollees", enrolled)
+                .post("/students", students)
                 .then(() => {
                     setNotification("User was successfully created");
                     navigate("/admin/users");
@@ -78,14 +79,14 @@ function AdminViewEnrollee() {
     return (
         <>
             <div className="dashboard-section-content">
-                {enrolled.id && (
+                {students.id && (
                     <div className="dashboard-title-holder">
                         <Link className="dashboard-link-left" to="/admin/users">
                             <ArrowBackIosIcon />
                             <h3 className="dashboard-title">Users</h3>
                         </Link>
                         <h3 className="dashboard-title">
-                            Edit Enrollee: {enrolled.full_name}
+                            Edit Enrollee: {students.full_name}
                         </h3>
                     </div>
                 )}
@@ -103,10 +104,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Full Name</label>
                                         <input
-                                            value={enrolled.full_name}
+                                            value={students.full_name}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     full_name: ev.target.value,
                                                 })
                                             }
@@ -117,10 +118,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Date of Birth</label>
                                         <input
-                                            value={enrolled.date_of_birth}
+                                            value={students.date_of_birth}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     date_of_birth:
                                                         ev.target.value,
                                                 })
@@ -131,10 +132,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Gender</label>
                                         <select
-                                            value={enrolled.gender}
+                                            value={students.gender}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     gender: ev.target.value,
                                                 })
                                             }
@@ -148,10 +149,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Address</label>
                                         <input
-                                            value={enrolled.address}
+                                            value={students.address}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     address: ev.target.value,
                                                 })
                                             }
@@ -162,10 +163,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Phone Number</label>
                                         <input
-                                            value={enrolled.phone_number}
+                                            value={students.phone_number}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     phone_number:
                                                         ev.target.value,
                                                 })
@@ -177,10 +178,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Email</label>
                                         <input
-                                            value={enrolled.email}
+                                            value={students.email}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     email: ev.target.value,
                                                 })
                                             }
@@ -191,10 +192,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Nationality</label>
                                         <input
-                                            value={enrolled.nationality}
+                                            value={students.nationality}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     nationality:
                                                         ev.target.value,
                                                 })
@@ -211,10 +212,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Name of Guardian</label>
                                         <input
-                                            value={enrolled.guardian_name}
+                                            value={students.guardian_name}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     guardian_name:
                                                         ev.target.value,
                                                 })
@@ -229,11 +230,11 @@ function AdminViewEnrollee() {
                                         </label>
                                         <input
                                             value={
-                                                enrolled.guardian_relationship
+                                                students.guardian_relationship
                                             }
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     guardian_relationship:
                                                         ev.target.value,
                                                 })
@@ -245,10 +246,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Guardian Phone</label>
                                         <input
-                                            value={enrolled.guardian_phone}
+                                            value={students.guardian_phone}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     guardian_phone:
                                                         ev.target.value,
                                                 })
@@ -265,10 +266,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Previous School</label>
                                         <input
-                                            value={enrolled.previous_school}
+                                            value={students.previous_school}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     previous_school:
                                                         ev.target.value,
                                                 })
@@ -280,10 +281,10 @@ function AdminViewEnrollee() {
                                     <div className="form-input pages-col-4">
                                         <label>Former Grade</label>
                                         <input
-                                            value={enrolled.grade_completed}
+                                            value={students.grade_completed}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
+                                                setStudents({
+                                                    ...students,
                                                     grade_completed:
                                                         ev.target.value,
                                                 })
@@ -301,12 +302,26 @@ function AdminViewEnrollee() {
                                         <label>Date Enrolled</label>
                                         <input
                                             readOnly
-                                            value={enrolled.enrolled_at}
+                                            value={students.date_enrolled}
                                             onChange={(ev) =>
-                                                setEnrolled({
-                                                    ...enrolled,
-                                                    enrolled_at:
+                                                setStudents({
+                                                    ...students,
+                                                    date_enrolled:
                                                         ev.target.value,
+                                                })
+                                            }
+                                            type="text"
+                                        />
+                                    </div>
+                                    <div className="form-input pages-col-4">
+                                        <label>Date Accepted</label>
+                                        <input
+                                            readOnly
+                                            value={students.created_at}
+                                            onChange={(ev) =>
+                                                setStudents({
+                                                    ...students,
+                                                    created_at: ev.target.value,
                                                 })
                                             }
                                             type="text"
@@ -338,4 +353,4 @@ function AdminViewEnrollee() {
     );
 }
 
-export default AdminViewEnrollee;
+export default AdminViewStudents;

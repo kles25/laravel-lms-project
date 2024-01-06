@@ -32,8 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'user_name',
         'password',
         'image',
         'user_code',
@@ -57,7 +56,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'user_code' => 'string',
         'role_code' => 'string',
@@ -93,8 +91,14 @@ class User extends Authenticatable
 
             // Increment role code based on the count of existing users with the same role
             $user->role_code = sprintf('%02d', $roleCount);
+
+            // Generate user_name based on role code pattern only if the role is 'student'
+            if ($user->role === 'student') {
+                $userName = 'STDNT' . $roleCount;
+                $user->user_name = $userName;
+
+                $user->password = $userName;
+            }
         });
     }
-    
-   
 }

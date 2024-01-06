@@ -33,6 +33,10 @@ import StudentCalendar from "./pages/student/StudentCalendar";
 import StudentProfile from "./pages/student/StudentProfile";
 import Enrollment from "./pages/enrollment/Enrollment";
 import AdminViewEnrollee from "./pages/admin/AdminViewEnrollee";
+import UsersData from "./datatable/UsersData";
+import EnrolleesData from "./datatable/EnrolleesData";
+import StudentsData from "./datatable/StudentsData";
+import AdminViewStudents from "./pages/admin/AdminViewStudents";
 
 const TIMEOUT_DURATION = 3000;
 
@@ -149,14 +153,32 @@ const router = createBrowserRouter([
             {
                 path: "/admin/users",
                 element: <AdminUsers />,
+                children: [
+                    {
+                        path: "/admin/users",
+                        element: <UsersData />,
+                    },
+                    {
+                        path: "/admin/users/enrollees",
+                        element: <EnrolleesData />,
+                    },
+                    {
+                        path: "/admin/users/students",
+                        element: <StudentsData />,
+                    },
+                ],
+            },
+            {
+                path: "/admin/users/:user_code",
+                element: <AdminCreateUsers />,
             },
             {
                 path: "/admin/enrolled/:id",
                 element: <AdminViewEnrollee />,
             },
             {
-                path: "/admin/users/:user_code",
-                element: <AdminCreateUsers />,
+                path: "/admin/students/:id",
+                element: <AdminViewStudents />,
             },
             {
                 path: "/admin/createusers",
