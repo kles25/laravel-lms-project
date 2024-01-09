@@ -26,7 +26,7 @@
 
 .header-navigation-holder h3 {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     right: 80px;
 }
 
@@ -44,7 +44,7 @@
     cursor: pointer;
     margin-left: 1vh;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     right: 40px;
 }
 
@@ -93,7 +93,7 @@
     background-color: #0000006c;
     transition: .5s;
     padding-right: 0;
-
+    z-index: 1;
 }
 
 .header-navigation-links.active {

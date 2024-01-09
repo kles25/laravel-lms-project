@@ -37,6 +37,10 @@ import UsersData from "./datatable/UsersData";
 import EnrolleesData from "./datatable/EnrolleesData";
 import StudentsData from "./datatable/StudentsData";
 import AdminViewStudents from "./pages/admin/AdminViewStudents";
+import Homepage from "./pages/homepage/Homepage";
+import About from "./pages/about/About";
+import AdminCreateCourse from "./pages/admin/AdminCreateCourse";
+import DetailsCourse from "./components/dashboard/admin/courses/DetailsCourse";
 
 const TIMEOUT_DURATION = 3000;
 
@@ -87,7 +91,7 @@ const ProtectedRoute = ({ element, allowedRoles, path }) => {
                 <div className="loader"></div>
                 <div className="">
                     <h3 className="loading-text">
-                        Verifying User
+                        Authenticating
                         <span data-text=".">.</span>
                         <span data-text=".">.</span>
                         <span data-text=".">.</span>
@@ -120,12 +124,24 @@ const router = createBrowserRouter([
         element: <DelayedRoute element={<Home />} />,
         children: [
             {
+                path: "/",
+                element: <Navigate to="/home" />,
+            },
+            {
                 path: "/signin",
                 element: <SignIn />,
             },
             {
                 path: "/enrollment",
                 element: <Enrollment />,
+            },
+            {
+                path: "/home",
+                element: <Homepage />,
+            },
+            {
+                path: "/about",
+                element: <About />,
             },
         ],
     },
@@ -149,6 +165,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/courses",
                 element: <AdminCourses />,
+            },
+            {
+                path: "/admin/create-course",
+                element: <AdminCreateCourse />,
             },
             {
                 path: "/admin/users",
@@ -291,6 +311,10 @@ const router = createBrowserRouter([
                 element: <StudentProfile />,
             },
         ],
+    },
+    {
+        path: "/course-details/:id",
+        element: <DetailsCourse />,
     },
     {
         path: "*",

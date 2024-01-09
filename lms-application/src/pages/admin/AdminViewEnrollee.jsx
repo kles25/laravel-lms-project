@@ -44,7 +44,6 @@ function AdminViewEnrollee() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(enrolled);
 
         if (enrolled.id) {
             axiosClient

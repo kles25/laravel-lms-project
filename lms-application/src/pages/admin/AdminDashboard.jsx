@@ -51,7 +51,7 @@ function AdminDashboard() {
         });
     };
 
-    const baseURL = "http://localhost:8000/";
+    const baseURL = `${import.meta.env.VITE_API_BASE_URL}/`;
     const imageUrl = baseURL + user.image;
 
     return (

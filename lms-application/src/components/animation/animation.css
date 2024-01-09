@@ -8,6 +8,7 @@ svg.wave-animation {
     display: block;
     background-color: #000A2B;
     background-image: linear-gradient(to bottom, rgba(14, 65, 102, 0.86), #000A2B);
+    z-index: -1;
 }
 
 
@@ -25,7 +26,7 @@ svg.wave-animation {
     transform-style: preserve-3d;
     transform: translateZ(-100px);
     transition: transform 1s;
-    animation: rotateCube 10s linear infinite;
+    animation: rotateCube 30s linear infinite;
 }
 
 .cube__face {
