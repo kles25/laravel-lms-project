@@ -23,6 +23,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
+            'display_name' => 'nullable|string',
+            'email' => 'nullable|email|unique:users,email',
+            'address' => 'nullable|string',
+            'phone_number' => 'nullable|string',
             'image' => 'nullable|string',
             'role' => 'required|in:admin,teacher,student',
         ];

@@ -41,6 +41,12 @@ import Homepage from "./pages/homepage/Homepage";
 import About from "./pages/about/About";
 import AdminCreateCourse from "./pages/admin/AdminCreateCourse";
 import DetailsCourse from "./components/dashboard/admin/courses/DetailsCourse";
+import News from "./pages/news/News";
+import Contact from "./pages/contact/Contact";
+import Courses from "./pages/courses/Courses";
+import AdminCreateBatch from "./pages/admin/AdminCreateBatch";
+import AdminCreateEvent from "./pages/admin/AdminCreateEvent";
+import AdminEditProfile from "./pages/admin/AdminEditProfile";
 
 const TIMEOUT_DURATION = 3000;
 
@@ -143,6 +149,18 @@ const router = createBrowserRouter([
                 path: "/about",
                 element: <About />,
             },
+            {
+                path: "/news",
+                element: <News />,
+            },
+            {
+                path: "/contact",
+                element: <Contact />,
+            },
+            {
+                path: "/courses",
+                element: <Courses />,
+            },
         ],
     },
     {
@@ -189,7 +207,7 @@ const router = createBrowserRouter([
                 ],
             },
             {
-                path: "/admin/users/:user_code",
+                path: "/admin/users/:id",
                 element: <AdminCreateUsers />,
             },
             {
@@ -209,12 +227,24 @@ const router = createBrowserRouter([
                 element: <AdminBatches />,
             },
             {
+                path: "/admin/create-batch",
+                element: <AdminCreateBatch />,
+            },
+            {
                 path: "/admin/calendar",
                 element: <AdminCalendar />,
             },
             {
+                path: "/admin/create-event",
+                element: <AdminCreateEvent />,
+            },
+            {
                 path: "/admin/profile",
                 element: <AdminProfile />,
+            },
+            {
+                path: "/admin/edit-profile",
+                element: <AdminEditProfile />,
             },
         ],
     },
@@ -314,7 +344,12 @@ const router = createBrowserRouter([
     },
     {
         path: "/course-details/:id",
-        element: <DetailsCourse />,
+        element: (
+            <ProtectedRoute
+                element={<DetailsCourse />}
+                allowedRoles={["admin", "teacher", "student"]}
+            />
+        ),
     },
     {
         path: "*",

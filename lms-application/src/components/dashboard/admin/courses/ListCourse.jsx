@@ -37,7 +37,7 @@ const ListCourse = () => {
                     </Link>
                     <Link
                         className="edit-course-button"
-                        to={`/create-course/${id}`} // Update this route to match your edit route
+                        // to={`/create-course/${id}`}
                         style={{ textDecoration: "none" }}
                         key={id}
                     >

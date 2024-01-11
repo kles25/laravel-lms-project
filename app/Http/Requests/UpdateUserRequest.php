@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_name' => 'required|string|unique:users,user_name,'.$this->user_code.',user_code',
+            'user_name' => 'required|string|unique:users,user_name,'.$this->id.',id',
             'password' => [
                 'confirmed',
                 Password::min(8)
@@ -32,6 +32,10 @@ class UpdateUserRequest extends FormRequest
                     ->numbers()
             ],
             'image' => 'string',
+            'display_name' => 'string',
+            'email' => 'string',
+            'phone_number' => 'string',
+            'address' => 'string',
             'role' => 'required|in:admin,teacher,student',
         ];
     }

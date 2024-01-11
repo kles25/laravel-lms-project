@@ -1,5 +1,5 @@
 export const userColumns = [
-    { field: "user_code", headerName: "ID", width: 100 },
+    { field: "id", headerName: "ID", width: 100 },
     {
         field: "",
         headerName: "Avatar",

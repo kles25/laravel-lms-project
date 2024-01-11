@@ -10,9 +10,9 @@ function AdminCreateUsers() {
     const [loading, setLoading] = useState(false);
     const { setNotification } = useStateContext();
     const navigate = useNavigate();
-    let { user_code } = useParams();
+    let { id } = useParams();
     const [user, setUser] = useState({
-        user_code: null,
+        id: null,
         user_name: "",
         password: "",
         password_confirmation: "",
@@ -37,11 +37,11 @@ function AdminCreateUsers() {
         reader.readAsDataURL(file);
     };
 
-    if (user_code) {
+    if (id) {
         useEffect(() => {
             setLoading(true);
             axiosClient
-                .get(`/users/${user_code}`)
+                .get(`/users/${id}`)
                 .then(({ data }) => {
                     setLoading(false);
                     setUser(data);
@@ -61,9 +61,9 @@ function AdminCreateUsers() {
         }
         delete payload.image_url;
 
-        if (user.user_code) {
+        if (user.id) {
             axiosClient
-                .put(`/users/${user.user_code}`, payload)
+                .put(`/users/${user.id}`, payload)
                 .then(() => {
                     setNotification("User was successfully updated");
                     navigate("/admin/users");
@@ -94,7 +94,7 @@ function AdminCreateUsers() {
 
     return (
         <div className="dashboard-section-content">
-            {!user.user_code && (
+            {!user.id && (
                 <div className="dashboard-title-holder">
                     <Link className="dashboard-link-left" to="/admin/users">
                         <ArrowBackIosIcon />
@@ -105,7 +105,7 @@ function AdminCreateUsers() {
             )}
 
             <div className="dashboard-createuser-form">
-                {user.user_code && (
+                {user.id && (
                     <div className="dashboard-title-holder">
                         <Link className="dashboard-link-left" to="/admin/users">
                             <ArrowBackIosIcon />
@@ -237,7 +237,7 @@ function AdminCreateUsers() {
                             </div>
                         </div>
                         <div className="form-input">
-                            <button>Submit</button>
+                            <button className="form-button">Submit</button>
                         </div>
                         {errors && (
                             <div className="alert">

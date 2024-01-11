@@ -49,7 +49,7 @@ class AddUser extends Command
         }
 
          // Find the maximum role_code for the specific role
-         $maxRoleCount = DB::table('users')->where('role', $role)->max('user_code');
+         $maxRoleCount = DB::table('users')->where('role', $role)->max('id');
          $roleCount = $maxRoleCount ? intval(substr($maxRoleCount, -4)) + 1 : 1;
          
          $sequentialNumber = str_pad($roleCount, 3, '0', STR_PAD_LEFT);
@@ -66,9 +66,13 @@ class AddUser extends Command
         DB::table('users')->insert([
             'user_name' => $user_name,
             'password' => $hashedPassword,
-            'user_code' => $userCode,
+            'id' => $userCode,
             'role' => $role,
             'role_code' => $roleCode, // You can set this value here if needed
+            'display_name' => null, // If needed, handle image URL here
+            'email' => null, // If needed, handle image URL here
+            'phone_number' => null, // If needed, handle image URL here
+            'address' => null, // If needed, handle image URL here
             'image' => null, // If needed, handle image URL here
             'remember_token' => null, // Handle remember token here if needed
             'created_at' => now(),

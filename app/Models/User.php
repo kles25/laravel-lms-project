@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function getRouteKeyName() {
-        return 'user_code';
+        return 'id';
     }
 
 
@@ -24,7 +24,7 @@ class User extends Authenticatable
      *
      * @var string
      */
-    protected $primaryKey = 'user_code';
+    protected $primaryKey = 'id';
     
     /**
      * The attributes that are mass assignable.
@@ -34,8 +34,12 @@ class User extends Authenticatable
     protected $fillable = [
         'user_name',
         'password',
+        'email',
+        'display_name',
+        'phone_number',
+        'address',
         'image',
-        'user_code',
+        'id',
         'role',
         'role_code',
     ];
@@ -57,7 +61,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'password' => 'hashed',
-        'user_code' => 'string',
+        'id' => 'string',
         'role_code' => 'string',
     ];
 
@@ -82,12 +86,12 @@ class User extends Authenticatable
             }
 
             // Find the maximum sequential number for the role
-            $maxRoleCount = self::where('role', $user->role)->max('user_code');
+            $maxRoleCount = self::where('role', $user->role)->max('id');
             $roleCount = $maxRoleCount ? intval(substr($maxRoleCount, -4)) + 1 : 1;
 
             $sequentialNumber = str_pad($roleCount, 3, '0', STR_PAD_LEFT);
 
-            $user->user_code = $roleCode . '00' . $sequentialNumber;
+            $user->id = $roleCode . '00' . $sequentialNumber;
 
             // Increment role code based on the count of existing users with the same role
             $user->role_code = sprintf('%02d', $roleCount);

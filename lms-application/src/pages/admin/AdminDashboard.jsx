@@ -141,7 +141,9 @@ function AdminDashboard() {
                                                             }
                                                         >
                                                             <AccountBoxIcon />
-                                                            <p>{user.name}</p>
+                                                            <p>
+                                                                {user.user_name}
+                                                            </p>
                                                         </Link>
                                                         <Link
                                                             to="/"

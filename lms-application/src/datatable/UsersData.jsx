@@ -37,7 +37,7 @@ function UsersData() {
                     <div className="cell-action">
                         <Link
                             className="btn-edit"
-                            to={"/admin/users/" + params.row.user_code}
+                            to={"/admin/users/" + params.row.id}
                         >
                             Edit
                         </Link>
@@ -58,7 +58,7 @@ function UsersData() {
         if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
         }
-        axiosClient.delete(`/users/${data.user_code}`).then(() => {
+        axiosClient.delete(`/users/${data.id}`).then(() => {
             setNotification("User was successfully deleted");
             getUsers();
         });
@@ -75,7 +75,7 @@ function UsersData() {
                         backgroundColor: "#071c30e6",
                     }}
                     className="datagrid"
-                    getRowId={(row) => row.user_code}
+                    getRowId={(row) => row.id}
                     rows={data}
                     columns={userColumns.concat(actionColumn)}
                     pageSize={9}
